@@ -1,0 +1,94 @@
+<html>
+    <head>
+    </head>
+
+    <body>
+
+<h3>Welcome to Sinker Search</h3>
+
+<p>Did you know that you can weight Google searches by repeating a search term? Try searching for <b>farm animals cows chickens pigs</b> and then search for <b>farm animals cows chickens pigs pigs pigs pigs pigs pigs pigs pigs pigs pigs pigs</b>. You'll see the second search is much more pig-oriented, though its results more generally ascertain to farming and farm animals.</p>
+
+<p>Google's query limit is 32 words. Sinker Search takes a query and a word to be emphasized in the search - the "sinker" that weights your results a certain way- and builds a Google search containing the query once and the sinker term as many times it will fit inside Google's query limit. You also have the option to do a "half-sink," where the sinker term is used half as often. This is useful when your sinker term is completely overwhelming your search results. 
+
+<br>
+<br>
+<br>
+
+        <label>Enter the main query</label>
+        <input type="text" class="MainQuery" value="westerns movies"><br>  <br>
+   
+   
+       <label>Enter the "sinker" part of the query</label>
+       <br><br>
+       <i>This is the part of the query you want the most emphasized. It can be a multi-word single term (like "modern art") but it must be a single term.</i>
+       <br><br>
+       <input type="text" class="sinker" value="Italy"><br><br>
+
+<label>Enter y if you want a "half-sinker" - only half the remaining space in the query will be filled with the keyword you want to emphasize. This comes in handy when your query is short and the sinker term overwhelms the search results.</label>
+  <input type="text" class="halfsinker" size="1" maxlength="1"><br><br>
+ 
+   
+<button onclick="sinkersearch()">Sink that search</button>
+
+    </body>
+
+<script>
+
+function sinkersearch()
+{ 
+  
+// Getting our variables
+
+// What's the main query?
+var MainQuery = document.querySelector(".MainQuery").value  
+MainQuery = MainQuery
+
+// What's the "sinker" for this query? 
+var sinker = document.querySelector(".sinker").value
+sinker="\""+sinker+"\""
+
+
+// Let's make a big ol' Google query
+var MainQueryLength = MainQuery.split(' ').length
+var SinkerLength = sinker.split(' ').length
+
+
+BigQueryString = MainQuery
+
+GoogleQueryLimit = 32
+QueryStart = MainQueryLength
+QueryLimit = GoogleQueryLimit-SinkerLength
+
+// Full sinker or half-sink? 
+var sinkersize = document.querySelector(".halfsinker").value
+if (sinkersize) {
+QueryLimit = Math.round(QueryLimit * .50)
+}
+
+while (QueryStart < QueryLimit) {
+
+BigQueryString = BigQueryString+"+"+sinker
+console.log(BigQueryString)
+QueryStart=QueryStart+SinkerLength
+
+} 
+
+BQString = encodeURI(BigQueryString) 
+console.log(BQString)
+  
+// setting up URL components
+var baseGS = "https://www.google.com/search?q=";
+
+var FullQ = baseGS+BQString
+
+  // Open a new tab with the completed search URL 
+  window.open(FullQ)
+
+ 
+  
+}
+
+
+    </script>
+
+</html>
