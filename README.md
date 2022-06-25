@@ -1,0 +1,1 @@
+Sinker Searches takes a search query and a word to be emphasized in a search (the "sinker" that weights search results) and builds a Google search with the query and as many instances of the sinker as can fit inside Google's 32-word query limit. 
